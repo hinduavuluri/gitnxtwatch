@@ -82,19 +82,17 @@ class VideoDetailsView extends Component {
   }
 
   renderVideoDetails = () => {
-    const {videoDetails} = this.state
+    const {videoDetails, isLiked, isDisliked} = this.state
     return (
       <VideoListDiv>
-        {videoDetails.map(each => (
-          <VideoPlayView
-            isLiked={isLiked}
-            isDisliked={isDisliked}
-            clickLiked={this.clickLiked}
-            clickDisliked={this.clickDisliked}
-            videoDetails={videoDetails}
-            onClickSave={this.onClickSave}
-          />
-        ))}
+        <VideoPlayView
+          clickLiked={this.clickLiked}
+          clickDisliked={this.clickDisliked}
+          videoDetails={videoDetails}
+          onClickSave={this.onClickSave}
+          isLiked={isLiked}
+          isDisliked={isDisliked}
+        />
       </VideoListDiv>
     )
   }
