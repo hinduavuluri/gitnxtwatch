@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const FailureViewDiv = styled.div`
+export const FailureViewDivContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
