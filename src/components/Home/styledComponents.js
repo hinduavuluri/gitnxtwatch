@@ -3,69 +3,90 @@ import styled from 'styled-components'
 export const HomeContainer = styled.div`
   background-color: ${props => props.bgColor};
   min-height: 100vh;
+  margin-top: 60px;
+  margin-bottom: 60px;
   overflow-y: auto;
-  margin-top: 50px;
-  margin-botom: 50px;
+  @media screen and (min-width: 768px) {
+    margin-left: 250px;
+    margin-bottom: 0px;
+  }
 `
-export const BannerDiv = styled.div`
+export const BannerContainer = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
-  height: 200px;
   width: 100%;
   background-size: cover;
-  padding: 20px;
+  height: 200px;
   display: ${props => props.display};
   justify-content: space-between;
+  padding: 20px;
 `
-export const BannerLeftDiv = styled.div`
+export const BannerLeftPart = styled.div`
+  width: 50%;
+`
+export const BannerRightPart = styled.div`
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
 `
-export const BannerImg = styled.img`
-  height: 70px;
-  widh: 200px;
-  margin-bottom: 10px;
+
+export const BannerImage = styled.img`
+  width: 80px;
+  height: 30px;
+`
+export const BannerButton = styled.button`
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border: 1px solid #000000;
+  color: #000000;
+  background: none;
 `
 export const BannerText = styled.p`
   font-family: 'Roboto';
-  font-size: 24px;
-  color: #1e293b;
-  font-weight: 500;
+  font-size: 15px;
+  color: #000000;
+  @media screen and (min-width: 576px) {
+    font-size: 20px;
+  }
 `
-export const BannerBtn = styled.button`
-  height: 50px;
-  width: 130px;
-  border-width: 2px;
-  border-color: #1e293b;
-  color: #1e293b;
-  font-size: 30px;
+export const BannerCloseButton = styled.button`
+  border: none;
+  background: none;
+  height: 25px;
+`
+
+export const SearchContainer = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-`
-export const BannerRightPart = styled.div``
-export const BannerCloseBtn = styled.button`
-  height: 30px;
-  width: 30px;
-`
-export const SearchDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  border: 1px solid #909090;
+  border-radius: 3px;
+  margin: 20px;
   width: 60%;
+  height: 40px;
+  @media screen and (min-width: 576px) {
+    width: 40%;
+  }
 `
-export const InputContainer = styled.input`
-  height: 50px;
-  border-radius: 6px;
-  border-color: ${props => props.color};
-  font-size: 30px;
-`
-export const SearchButton = styled.button`
-  height: 50px;
-  width: 40px;
-  background-color: #475569;
+export const SearchIconContainer = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #909090;
+  width: 70px;
+  border: none;
+`
+
+export const SearchInput = styled.input`
+  background: none;
+  width: 100%;
+  outline: none;
+  padding: 5px;
+  border: none;
   color: ${props => props.color};
+  font-family: Roboto;
+`
+export const LoaderContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
 `

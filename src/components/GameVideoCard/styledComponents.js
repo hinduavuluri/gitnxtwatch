@@ -1,27 +1,44 @@
+import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
-export const VideoCardItem = styled.li`
+export const ItemLink = styled(Link)`
+  text-decoration: none;
+`
+
+export const GamingListItem = styled.li`
+  background: none;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 200px;
-  height: 350px;
-  margin-bottom: 30px;
-  margin-right: 20px;
+  @media screen and (min-width: 768px) {
+    width: 280px;
+    margin-right: 20px;
+  }
 `
-export const GameImage = styled.img`
-  height: 270px;
-  border-radius: 6px;
-  margin-bottom: 10px;
-  width: 190px;
+export const GamingThumbNailImage = styled.img`
+  width: 100vw;
+  height: 300px;
+  align-self: center;
+  @media screen and (min-width: 768px) {
+    width: 280px;
+  }
 `
-export const GameTitle = styled.h1`
+
+export const GamingContentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 8px;
+`
+export const GamingTitle = styled.p`
   font-family: 'Roboto';
-  font-size: 20px;
+  font-size: 15px;
   color: ${props => props.color};
-  font-weight: bold;
+  margin-bottom: 0px;
 `
-export const GameViews = styled.p`
-  font-family: 'Roboto';
-  font-size: 20px;
+
+export const GamingViewsAndDate = styled.p`
+  font-family: Roboto;
+  font-size: 12px;
   color: ${props => props.color};
 `

@@ -1,32 +1,36 @@
-import {Link, withRouter} from 'react-router-dom'
-import {BsBrightnessHighFill} from 'react-icons/bs'
-import {RiMoonFill} from 'react-icons/ri'
+import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Popup from 'reactjs-popup'
+
+import {BsMoon, BsBrightnessHigh} from 'react-icons/bs'
+import {FiLogOut} from 'react-icons/fi'
 
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 
 import {
-  NavbarContainer,
-  NavLogo,
+  LogoLink,
+  NavbarHeader,
+  HeaderLogo,
   ActionsContainer,
-  ThemeBtn,
-  ProfileImg,
+  ThemeButton,
+  LogoutIconButton,
+  LogoutButton,
+  ProfileImage,
   ModalContainer,
-  LogoutBtn,
-  BtnContainer,
-  CloseBtn,
-  ModalText,
-  ConfirmBtn,
+  CloseButton,
+  ConfirmButton,
+  ModalDesc,
+  ButtonsContainer,
 } from './styledComponents'
 
 const Header = props => (
   <ThemeAndVideoContext.Consumer>
     {value => {
       const {isDarkTheme, toggleTheme} = value
-      const bgColor = isDarkTheme ? '#0f0f0f' : '#f9f9f9'
       const color = isDarkTheme ? '#ffffff' : '#00306e'
-      const changeTheme = () => {
+      const bgColor = isDarkTheme ? '#231f20' : '#f1f5f9'
+
+      const onChangeTheme = () => {
         toggleTheme()
       }
 
@@ -37,59 +41,93 @@ const Header = props => (
       }
 
       return (
-        <NavbarContainer bgColor={bgColor}>
-          <Link to="/">
-            <NavLogo
+        <NavbarHeader bgColor={bgColor}>
+          <LogoLink to="/">
+            <HeaderLogo
               src={
                 isDarkTheme
                   ? 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-dark-theme-img.png'
                   : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-logo-light-theme-img.png'
               }
+              alt="website logo"
             />
-          </Link>
+          </LogoLink>
           <ActionsContainer>
-            <ThemeBtn type="button" data-testid="theme" onClick={changeTheme}>
+            <ThemeButton
+              type="button"
+              data-testid="theme"
+              onClick={onChangeTheme}
+            >
               {isDarkTheme ? (
-                <BsBrightnessHighFill color="#ffffff" size={30} />
+                <BsBrightnessHigh color="#ffffff" size={25} />
               ) : (
-                <RiMoonFill size={30} />
+                <BsMoon size={25} />
               )}
-            </ThemeBtn>
-            <ProfileImg
+            </ThemeButton>
+            <ProfileImage
               src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
               alt="profile"
             />
-
             <Popup
               modal
               trigger={
-                <LogoutBtn type="button" bgColor={bgColor} color={color}>
+                <LogoutButton type="button" bgColor={bgColor} color={color}>
                   Logout
-                </LogoutBtn>
+                </LogoutButton>
               }
             >
               {close => (
                 <ModalContainer>
-                  <ModalText>Are you sure, you want to logout?</ModalText>
-                  <BtnContainer>
-                    <CloseBtn
+                  <ModalDesc>Are you sure, you want to logout?</ModalDesc>
+                  <ButtonsContainer>
+                    <CloseButton
                       type="button"
                       data-testid="closeButton"
                       onClick={() => close()}
                     >
-                      Close
-                    </CloseBtn>
-                    <ConfirmBtn type="button" onClick={onClickLogout}>
+                      Cancel
+                    </CloseButton>
+
+                    <ConfirmButton type="button" onClick={onClickLogout}>
                       Confirm
-                    </ConfirmBtn>
-                  </BtnContainer>
+                    </ConfirmButton>
+                  </ButtonsContainer>
+                </ModalContainer>
+              )}
+            </Popup>
+            <Popup
+              modal
+              trigger={
+                <LogoutIconButton type="button">
+                  <FiLogOut size={25} color={color} />
+                </LogoutIconButton>
+              }
+              className="popup-content"
+            >
+              {close => (
+                <ModalContainer>
+                  <ModalDesc>Are you sure, you want to logout?</ModalDesc>
+                  <ButtonsContainer>
+                    <CloseButton
+                      type="button"
+                      data-testid="closeButton"
+                      onClick={() => close()}
+                    >
+                      Cancel
+                    </CloseButton>
+
+                    <ConfirmButton type="button" onClick={onClickLogout}>
+                      Confirm
+                    </ConfirmButton>
+                  </ButtonsContainer>
                 </ModalContainer>
               )}
             </Popup>
           </ActionsContainer>
-        </NavbarContainer>
+        </NavbarHeader>
       )
     }}
   </ThemeAndVideoContext.Consumer>
 )
+
 export default withRouter(Header)

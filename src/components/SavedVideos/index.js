@@ -1,66 +1,69 @@
-import {HiFire} from 'react-icons/hi'
+import {CgPlayListAdd} from 'react-icons/cg'
+
 import Header from '../Header'
-import SideBar from '../SideBar'
-import TrendingVideoCard from '../TrendingVideoCard'
+import NavigationBar from '../NavigationBar'
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
+import VideoCard from '../VideoCard'
 
 import {
-  SavedVideosDiv,
+  SavedContainer,
+  SavedTitleIconContainer,
   SavedVideoTitle,
-  SavedVideoIconDiv,
-  SavedVideoHeading,
   SavedVideoList,
-  NoVideosView,
-  NoVideosImg,
-  NoVideosHeading,
-  NoVideosNote,
+  SavedText,
+  NoSavedVideosView,
+  NoSavedVideosImage,
+  NoSavedVideosHeading,
+  NoSavedVideosNote,
 } from './styledComponents'
 
 const SavedVideos = () => (
   <ThemeAndVideoContext.Consumer>
     {value => {
       const {isDarkTheme, savedVideos} = value
+      // console.log(savedVideos)
+
       const bgColor = isDarkTheme ? '#0f0f0f' : '#f9f9f9'
       const textColor = isDarkTheme ? '#f9f9f9' : '#231f20'
       const headingColor = isDarkTheme ? '#f1f5f9' : '#1e293b'
       const noteColor = isDarkTheme ? '#e2e8f0' : '#475569'
+
       return (
         <>
           <Header />
-          <SideBar />
-          <SavedVideosDiv data-testid="savedVideos" bgColor={bgColor}>
+          <NavigationBar />
+          <SavedContainer data-testid="savedVideos" bgColor={bgColor}>
             <SavedVideoTitle>
-              <SavedVideoIconDiv>
-                <HiFire size={30} color="#ff0000" />
-              </SavedVideoIconDiv>
-              <SavedVideoHeading color={textColor}>
-                Saved Videos
-              </SavedVideoHeading>
+              <SavedTitleIconContainer>
+                <CgPlayListAdd size={35} color="#ff0000" />
+              </SavedTitleIconContainer>
+              <SavedText color={textColor}>Saved Videos</SavedText>
             </SavedVideoTitle>
             {savedVideos.length > 0 ? (
               <SavedVideoList>
-                {savedVideos.map(each => (
-                  <TrendingVideoCard key={each.id} videoDetails={each} />
+                {savedVideos.map(eachVideo => (
+                  <VideoCard key={eachVideo.id} videoDetails={eachVideo} />
                 ))}
               </SavedVideoList>
             ) : (
-              <NoVideosView>
-                <NoVideosImg
+              <NoSavedVideosView>
+                <NoSavedVideosImage
                   src="https://assets.ccbp.in/frontend/react-js/nxt-watch-no-saved-videos-img.png"
                   alt="no saved videos"
                 />
-                <NoVideosHeading color={headingColor}>
+                <NoSavedVideosHeading headingColor={headingColor}>
                   No saved videos found
-                </NoVideosHeading>
-                <NoVideosNote color={noteColor}>
-                  You can save your videos while watching them{' '}
-                </NoVideosNote>
-              </NoVideosView>
+                </NoSavedVideosHeading>
+                <NoSavedVideosNote noteColor={noteColor}>
+                  You can save your videos while watching them
+                </NoSavedVideosNote>
+              </NoSavedVideosView>
             )}
-          </SavedVideosDiv>
+          </SavedContainer>
         </>
       )
     }}
   </ThemeAndVideoContext.Consumer>
 )
+
 export default SavedVideos

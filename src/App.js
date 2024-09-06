@@ -1,20 +1,30 @@
 import {Component} from 'react'
-import {Switch, Route} from 'react-router-dom'
+import {Route, Switch, Redirect} from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
 import LoginForm from './components/LoginForm'
 import Home from './components/Home'
-import VideoDetailsView from './components/VideoDetailsView'
-import SavedVideos from './components/SavedVideos'
+import VideoDetailView from './components/VideoDetailView'
 import TrendingVideos from './components/TrendingVideos'
-import GameVideos from './components/GameVideos'
+import GamingVideos from './components/GamingVideos'
+import SavedVideos from './components/SavedVideos'
 import NotFound from './components/NotFound'
+
 import ThemeAndVideoContext from './context/ThemeAndVideoContext'
 
-import ProtectedRoute from './components/ProtectedRoute'
 import './App.css'
 
 // Replace your code here
+
 class App extends Component {
-  state = {savedVideos: [], isDarkTheme: false, activeTab: 'Home'}
+  state = {
+    savedVideos: [],
+    isDarkTheme: false,
+    activeTab: 'Home',
+  }
+
+  changeTab = tab => {
+    this.setState({activeTab: tab})
+  }
 
   toggleTheme = () => {
     this.setState(prevState => ({
@@ -22,15 +32,9 @@ class App extends Component {
     }))
   }
 
-  changeTab = tab => {
-    this.setState({
-      activeTab: tab,
-    })
-  }
-
   addVideo = video => {
     const {savedVideos} = this.state
-    const index = savedVideos.findIndex(each => each.id === video.id)
+    const index = savedVideos.findIndex(eachVideo => eachVideo.id === video.id)
     if (index === -1) {
       this.setState({savedVideos: [...savedVideos, video]})
     } else {
@@ -39,8 +43,17 @@ class App extends Component {
     }
   }
 
+  removeVideo = id => {
+    const {savedVideos} = this.state
+    const updatedSavedVideos = savedVideos.filter(
+      eachVideo => eachVideo.id !== id,
+    )
+    this.setState({savedVideos: updatedSavedVideos})
+  }
+
   render() {
     const {savedVideos, isDarkTheme, activeTab} = this.state
+    // console.log(savedVideos)
     return (
       <ThemeAndVideoContext.Provider
         value={{
@@ -55,15 +68,16 @@ class App extends Component {
         <Switch>
           <Route exact path="/login" component={LoginForm} />
           <ProtectedRoute exact path="/" component={Home} />
-          <ProtectedRoute exact path="/trending" component={TrendingVideos} />
-          <ProtectedRoute exact path="/gaming" component={GameVideos} />
-          <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
           <ProtectedRoute
             exact
             path="/videos/:id"
-            component={VideoDetailsView}
+            component={VideoDetailView}
           />
-          <Route component={NotFound} />
+          <ProtectedRoute exact path="/trending" component={TrendingVideos} />
+          <ProtectedRoute exact path="/gaming" component={GamingVideos} />
+          <ProtectedRoute exact path="/saved-videos" component={SavedVideos} />
+          <Route path="/not-found" component={NotFound} />
+          <Redirect to="not-found" />
         </Switch>
       </ThemeAndVideoContext.Provider>
     )

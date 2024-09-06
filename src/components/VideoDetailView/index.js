@@ -1,27 +1,27 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
-import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
+
 import Header from '../Header'
-import SideBar from '../SideBar'
+import NavigationBar from '../NavigationBar'
+import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 import FailureView from '../FailureView'
-import VideoPlayView from '../VideoPlayView'
+import PlayVideoView from '../PlayVideoView'
 
-import {VideoDetailsList, VideoListDiv} from './styledComponents'
+import {VideoDetailViewContainer, LoaderContainer} from './styledComponents'
 
-const apivideoDetailsStatusConstants = {
+const apiStatusConstants = {
   initial: 'INITIAL',
   success: 'SUCCESS',
-  inProgress: 'IN_PROGRESS',
   failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
 }
-
-class VideoDetailsView extends Component {
+class VideoDetailView extends Component {
   state = {
-    apiStatus: apivideoDetailsStatusConstants.initial,
+    apiStatus: apiStatusConstants.initial,
     videoDetails: [],
     isLiked: false,
-    isDisliked: false,
+    isDisLiked: false,
   }
 
   componentDidMount() {
@@ -42,58 +42,66 @@ class VideoDetailsView extends Component {
   })
 
   getVideoDetails = async () => {
-    this.setState({apiStatus: apivideoDetailsStatusConstants.inProgress})
-    const jwtToken = Cookies.get('jwt_token')
+    this.setState({apiStatus: apiStatusConstants.inProgress})
+
     const {match} = this.props
     const {params} = match
     const {id} = params
+    // console.log(id)
+    const jwtToken = Cookies.get('jwt_token')
+
     const url = `https://apis.ccbp.in/videos/${id}`
     const options = {
-      method: 'GET',
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
+      method: 'GET',
     }
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
+      // console.log(data)
       const updatedData = this.formattedData(data)
       this.setState({
-        apiStatus: apivideoDetailsStatusConstants.success,
         videoDetails: updatedData,
+        apiStatus: apiStatusConstants.success,
       })
     } else {
-      this.setState({apiStatus: apivideoDetailsStatusConstants.failure})
+      this.setState({apiStatus: apiStatusConstants.failure})
     }
   }
 
   clickLiked = () => {
     this.setState(prevState => ({
       isLiked: !prevState.isLiked,
-      isDisliked: false,
+      isDisLiked: false,
     }))
   }
 
-  clickDisliked = () => {
+  clickDisLiked = () => {
     this.setState(prevState => ({
-      isDisliked: !prevState.isDisliked,
+      isDisLiked: !prevState.isDisLiked,
       isLiked: false,
     }))
   }
 
-  renderVideoDetails = () => {
-    const {videoDetails, isLiked, isDisliked} = this.state
+  renderLoadingView = () => (
+    <LoaderContainer data-testid="loader">
+      <Loader type="ThreeDots" color="#2563eb" height="50" width="50" />
+    </LoaderContainer>
+  )
+
+  renderPlayVideoView = () => {
+    const {videoDetails, isLiked, isDisLiked} = this.state
     return (
-      <VideoListDiv>
-        <VideoPlayView
-          clickLiked={this.clickLiked}
-          clickDisliked={this.clickDisliked}
-          videoDetails={videoDetails}
-          onClickSave={this.onClickSave}
-          isLiked={isLiked}
-          isDisliked={isDisliked}
-        />
-      </VideoListDiv>
+      <PlayVideoView
+        videoDetails={videoDetails}
+        clickLiked={this.clickLiked}
+        clickDisLiked={this.clickDisLiked}
+        clickSaved={this.clickSaved}
+        isLiked={isLiked}
+        isDisLiked={isDisLiked}
+      />
     )
   }
 
@@ -101,23 +109,17 @@ class VideoDetailsView extends Component {
     this.getVideoDetails()
   }
 
-  renderVideoFailure = () => <FailureView onRetry={this.onRetry} />
+  renderFailureView = () => <FailureView onRetry={this.onRetry} />
 
-  renderLoadingView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
-    </div>
-  )
-
-  renderVideoItemDetailsView = () => {
+  renderVideoDetailView = () => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
-      case apivideoDetailsStatusConstants.success:
-        return this.renderVideoDetails()
-      case apivideoDetailsStatusConstants.failure:
-        return this.renderVideoFailure()
-      case apivideoDetailsStatusConstants.inProgress:
+      case apiStatusConstants.success:
+        return this.renderPlayVideoView()
+      case apiStatusConstants.failure:
+        return this.renderFailureView()
+      case apiStatusConstants.inProgress:
         return this.renderLoadingView()
       default:
         return null
@@ -130,16 +132,17 @@ class VideoDetailsView extends Component {
         {value => {
           const {isDarkTheme} = value
           const bgColor = isDarkTheme ? '#0f0f0f' : '#f9f9f9'
+
           return (
             <>
               <Header />
-              <SideBar />
-              <VideoDetailsList
+              <NavigationBar />
+              <VideoDetailViewContainer
                 data-testid="videoItemDetails"
                 bgColor={bgColor}
               >
-                {this.renderVideoItemDetailsView()}
-              </VideoDetailsList>
+                {this.renderVideoDetailView()}
+              </VideoDetailViewContainer>
             </>
           )
         }}
@@ -147,4 +150,5 @@ class VideoDetailsView extends Component {
     )
   }
 }
-export default VideoDetailsView
+
+export default VideoDetailView

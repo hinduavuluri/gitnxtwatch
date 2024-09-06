@@ -2,20 +2,20 @@ import {Component} from 'react'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 
-import {HiFire} from 'react-icons/hi'
+import {SiYoutubegaming} from 'react-icons/si'
 
 import Header from '../Header'
 import NavigationBar from '../NavigationBar'
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 import FailureView from '../FailureView'
-import VideoCard from '../VideoCard'
+import GameVideoCard from '../GameVideoCard'
 
 import {
-  TrendingContainer,
-  TitleIconContainer,
-  TrendingVideoTitle,
-  TrendingVideoList,
-  TrendingText,
+  GamingContainer,
+  GamingTitleIconContainer,
+  GamingVideoTitle,
+  GamingVideoList,
+  GamingText,
   LoaderContainer,
 } from './styledComponents'
 
@@ -26,9 +26,9 @@ const apiStatusConstants = {
   inProgress: 'IN_PROGRESS',
 }
 
-class TrendingVideos extends Component {
+class GamingVideos extends Component {
   state = {
-    trendingVideos: [],
+    gamingVideos: [],
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -39,7 +39,7 @@ class TrendingVideos extends Component {
   getVideos = async () => {
     this.setState({apiStatus: apiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
-    const url = `https://apis.ccbp.in/videos/trending`
+    const url = `https://apis.ccbp.in/videos/gaming`
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
@@ -55,12 +55,9 @@ class TrendingVideos extends Component {
         title: eachVideo.title,
         thumbnailUrl: eachVideo.thumbnail_url,
         viewCount: eachVideo.view_count,
-        publishedAt: eachVideo.published_at,
-        name: eachVideo.channel.name,
-        profileImageUrl: eachVideo.channel.profile_image_url,
       }))
       this.setState({
-        trendingVideos: updatedData,
+        gamingVideos: updatedData,
         apiStatus: apiStatusConstants.success,
       })
     } else {
@@ -75,13 +72,13 @@ class TrendingVideos extends Component {
   )
 
   renderVideosView = () => {
-    const {trendingVideos} = this.state
+    const {gamingVideos} = this.state
     return (
-      <TrendingVideoList>
-        {trendingVideos.map(eachVideo => (
-          <VideoCard key={eachVideo.id} videoDetails={eachVideo} />
+      <GamingVideoList>
+        {gamingVideos.map(eachVideo => (
+          <GameVideoCard key={eachVideo.id} videoDetails={eachVideo} />
         ))}
-      </TrendingVideoList>
+      </GamingVideoList>
     )
   }
 
@@ -116,18 +113,18 @@ class TrendingVideos extends Component {
           const textColor = isDarkTheme ? '#f9f9f9' : '#231f20'
 
           return (
-            <div data-testid="trending">
+            <div>
               <Header />
               <NavigationBar />
-              <TrendingContainer data-testid="trending" bgColor={bgColor}>
-                <TrendingVideoTitle>
-                  <TitleIconContainer>
-                    <HiFire size={35} color="#ff0000" />
-                  </TitleIconContainer>
-                  <TrendingText color={textColor}>Trending</TrendingText>
-                </TrendingVideoTitle>
+              <GamingContainer data-testid="gaming" bgColor={bgColor}>
+                <GamingVideoTitle>
+                  <GamingTitleIconContainer>
+                    <SiYoutubegaming size={35} color="#ff0000" />
+                  </GamingTitleIconContainer>
+                  <GamingText color={textColor}>Gaming</GamingText>
+                </GamingVideoTitle>
                 {this.renderTrendingVideos()}
-              </TrendingContainer>
+              </GamingContainer>
             </div>
           )
         }}
@@ -136,4 +133,4 @@ class TrendingVideos extends Component {
   }
 }
 
-export default TrendingVideos
+export default GamingVideos
