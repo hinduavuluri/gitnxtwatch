@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const HomeContainer = styled.div`
   background-color: ${props => props.bgColor};
   min-height: 100vh;
-  margin-top: 60px;
+  margin-top: 50px;
   margin-bottom: 60px;
   overflow-y: auto;
   @media screen and (min-width: 768px) {
@@ -15,7 +15,7 @@ export const BannerContainer = styled.div`
   background-image: url('https://assets.ccbp.in/frontend/react-js/nxt-watch-banner-bg.png');
   width: 100%;
   background-size: cover;
-  height: 200px;
+  height: 190px;
   display: ${props => props.display};
   justify-content: space-between;
   padding: 20px;
@@ -68,6 +68,7 @@ export const SearchContainer = styled.div`
 `
 export const SearchIconContainer = styled.button`
   display: flex;
+  justify-content: center;
   justify-content: center;
   align-items: center;
   background-color: #909090;
