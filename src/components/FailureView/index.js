@@ -1,5 +1,5 @@
 import {
-  FailedView,
+  FailedViewDiv,
   FailedImage,
   FailedHeading,
   FailedNote,
@@ -27,7 +27,7 @@ const FailureView = props => {
           : 'https://assets.ccbp.in/frontend/react-js/nxt-watch-failure-view-light-theme-img.png'
 
         return (
-          <FailedView>
+          <FailedViewDiv>
             <FailedImage src={failureImageUrl} alt="failure view" />
             <FailedHeading headingColor={headingColor}>
               Oops! Something Went Wrong
@@ -39,7 +39,7 @@ const FailureView = props => {
             <RetryButton type="button" onClick={onClickRetry}>
               Retry
             </RetryButton>
-          </FailedView>
+          </FailedViewDiv>
         )
       }}
     </ThemeAndVideoContext.Consumer>
