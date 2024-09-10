@@ -8,7 +8,7 @@ import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 import FailureView from '../FailureView'
 import PlayVideoView from '../PlayVideoView'
 
-import {VideoDetailedViewContainer, LoaderContainer} from './styledComponents'
+import {VideoDetailViewContainer, LoaderContainer} from './styledComponents'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -47,7 +47,6 @@ class VideoDetailView extends Component {
     const {match} = this.props
     const {params} = match
     const {id} = params
-    // console.log(id)
     const jwtToken = Cookies.get('jwt_token')
 
     const url = `https://apis.ccbp.in/videos/${id}`
@@ -60,7 +59,6 @@ class VideoDetailView extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
       const updatedData = this.formattedData(data)
       this.setState({
         videoDetails: updatedData,
@@ -87,7 +85,7 @@ class VideoDetailView extends Component {
 
   renderLoadingView = () => (
     <LoaderContainer data-testid="loader">
-      <Loader type="ThreeDots" color="#2563eb" height="50" width="50" />
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </LoaderContainer>
   )
 
@@ -137,12 +135,12 @@ class VideoDetailView extends Component {
             <>
               <Header />
               <NavigationBar />
-              <VideoDetailedViewContainer
+              <VideoDetailViewContainer
                 data-testid="videoItemDetails"
                 bgColor={bgColor}
               >
                 {this.renderVideoDetailView()}
-              </VideoDetailedViewContainer>
+              </VideoDetailViewContainer>
             </>
           )
         }}

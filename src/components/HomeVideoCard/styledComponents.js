@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import {Link} from 'react-router-dom'
 
 export const ListItem = styled.li`
   background: none;
@@ -33,17 +34,17 @@ export const ContentSection = styled.div`
   padding: 8px;
 `
 export const Title = styled.p`
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-size: 15px;
   color: ${props => props.color};
 `
 export const ChannelName = styled.p`
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-size: 13px;
   color: ${props => props.color};
 `
 export const ViewsAndDate = styled.p`
-  font-family: Roboto;
+  font-family: 'Roboto';
   font-size: 12px;
   color: ${props => props.color};
 `
@@ -53,4 +54,7 @@ export const Dot = styled.span`
   border-radius: 50%;
   padding-left: 5px;
   padding-right: 5px;
+`
+export const NavLink = styled(Link)`
+  text-decoration: none;
 `

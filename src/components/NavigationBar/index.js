@@ -22,13 +22,11 @@ import {
 } from './styledComponents'
 
 class NavigationBar extends Component {
-  // const onClickTab = () => {}
-
   renderTabItems = () => (
     <ThemeAndVideoContext.Consumer>
       {value => {
         const {isDarkTheme, activeTab, changeTab} = value
-        const bgColor = isDarkTheme ? '#231f20' : '#f1f5f9'
+        const bgColor = isDarkTheme ? '#231f20' : '#ffffff'
         const textColor = isDarkTheme ? '#f9f9f9' : '#231f20'
         const activeTabBg = isDarkTheme ? '#475569' : '#cbd5e1'
 
@@ -166,4 +164,5 @@ class NavigationBar extends Component {
     return <>{this.renderTabItems()}</>
   }
 }
+
 export default NavigationBar

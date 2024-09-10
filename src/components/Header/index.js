@@ -1,15 +1,15 @@
 import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import Popup from 'reactjs-popup'
-
+import {GiHamburgerMenu} from 'react-icons/gi'
 import {BsMoon, BsBrightnessHigh} from 'react-icons/bs'
 import {FiLogOut} from 'react-icons/fi'
-
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 
 import {
+  NavbarBg,
+  MenuIcon,
   LogoLink,
-  NavbarHeader,
   HeaderLogo,
   ActionsContainer,
   ThemeButton,
@@ -28,9 +28,9 @@ const Header = props => (
     {value => {
       const {isDarkTheme, toggleTheme} = value
       const color = isDarkTheme ? '#ffffff' : '#00306e'
-      const bgColor = isDarkTheme ? '#231f20' : '#f1f5f9'
+      const bgColor = isDarkTheme ? '#181818' : '#ffffff'
 
-      const onChangeTheme = () => {
+      const onClickChangeTheme = () => {
         toggleTheme()
       }
 
@@ -41,7 +41,7 @@ const Header = props => (
       }
 
       return (
-        <NavbarHeader bgColor={bgColor}>
+        <NavbarBg bgColor={bgColor}>
           <LogoLink to="/">
             <HeaderLogo
               src={
@@ -56,7 +56,7 @@ const Header = props => (
             <ThemeButton
               type="button"
               data-testid="theme"
-              onClick={onChangeTheme}
+              onClick={onClickChangeTheme}
             >
               {isDarkTheme ? (
                 <BsBrightnessHigh color="#ffffff" size={25} />
@@ -68,6 +68,9 @@ const Header = props => (
               src="https://assets.ccbp.in/frontend/react-js/nxt-watch-profile-img.png"
               alt="profile"
             />
+            <MenuIcon>
+              <GiHamburgerMenu size={25} />
+            </MenuIcon>
             <Popup
               modal
               trigger={
@@ -124,7 +127,7 @@ const Header = props => (
               )}
             </Popup>
           </ActionsContainer>
-        </NavbarHeader>
+        </NavbarBg>
       )
     }}
   </ThemeAndVideoContext.Consumer>

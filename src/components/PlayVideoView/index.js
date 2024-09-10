@@ -26,7 +26,6 @@ import {
 
 const PlayVideoView = props => {
   const {videoDetails, isLiked, isDisLiked, clickLiked, clickDisLiked} = props
-  // console.log(videoDetails)
 
   const onClickLike = () => {
     clickLiked()
@@ -40,7 +39,6 @@ const PlayVideoView = props => {
     <ThemeAndVideoContext.Consumer>
       {value => {
         const {isDarkTheme, addVideo, savedVideos} = value
-        // const bgColor = isDarkTheme ? '#181818' : '#f9f9f9'
         const textColor = isDarkTheme ? '#64748b' : '#231f20'
         const likeIconColor = isLiked ? '#2563eb' : '#64748b'
         const dislikeIconColor = isDisLiked ? '#2563eb' : '#64748b'

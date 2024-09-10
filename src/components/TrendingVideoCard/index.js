@@ -13,7 +13,7 @@ import {
   TrendingDot,
 } from './styledComponents'
 
-const VideoCard = props => {
+const TrendingVideoCard = props => {
   const {videoDetails} = props
   const {
     id,
@@ -62,4 +62,4 @@ const VideoCard = props => {
   )
 }
 
-export default VideoCard
+export default TrendingVideoCard

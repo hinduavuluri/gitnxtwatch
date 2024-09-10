@@ -1,7 +1,8 @@
 import {Component} from 'react'
 import {Route, Switch, Redirect} from 'react-router-dom'
+
 import ProtectedRoute from './components/ProtectedRoute'
-import LoginForm from './components/LoginForm'
+import Login from './components/Login'
 import Home from './components/Home'
 import VideoDetailView from './components/VideoDetailView'
 import TrendingVideos from './components/TrendingVideos'
@@ -12,8 +13,6 @@ import NotFound from './components/NotFound'
 import ThemeAndVideoContext from './context/ThemeAndVideoContext'
 
 import './App.css'
-
-// Replace your code here
 
 class App extends Component {
   state = {
@@ -53,7 +52,6 @@ class App extends Component {
 
   render() {
     const {savedVideos, isDarkTheme, activeTab} = this.state
-    // console.log(savedVideos)
     return (
       <ThemeAndVideoContext.Provider
         value={{
@@ -66,7 +64,7 @@ class App extends Component {
         }}
       >
         <Switch>
-          <Route exact path="/login" component={LoginForm} />
+          <Route exact path="/login" component={Login} />
           <ProtectedRoute exact path="/" component={Home} />
           <ProtectedRoute
             exact

@@ -31,7 +31,7 @@ export const GamingContentSection = styled.div`
   padding: 8px;
 `
 export const GamingTitle = styled.p`
-  font-family: 'Roboto';
+  font-family: Roboto;
   font-size: 15px;
   color: ${props => props.color};
   margin-bottom: 0px;

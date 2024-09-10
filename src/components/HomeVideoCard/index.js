@@ -1,9 +1,8 @@
-import {Link} from 'react-router-dom'
-
 import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 
 import {
   ListItem,
+  NavLink,
   ThumbNailImage,
   VideoDetails,
   ProfileImage,
@@ -13,8 +12,6 @@ import {
   ViewsAndDate,
   Dot,
 } from './styledComponents'
-
-import './index.css'
 
 const HomeVideoCard = props => {
   const {video} = props
@@ -35,7 +32,7 @@ const HomeVideoCard = props => {
         const textColor = isDarkTheme ? '#f9f9f9' : '#231f20'
 
         return (
-          <Link to={`/videos/${id}`} className="link">
+          <NavLink to={`/videos/${id}`} className="link">
             <ListItem>
               <ThumbNailImage src={thumbnailUrl} alt="video thumbnail" />
               <VideoDetails>
@@ -49,7 +46,7 @@ const HomeVideoCard = props => {
                 </ContentSection>
               </VideoDetails>
             </ListItem>
-          </Link>
+          </NavLink>
         )
       }}
     </ThemeAndVideoContext.Consumer>

@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-export const NavbarHeader = styled.nav`
+export const NavbarBg = styled.nav`
   position: fixed;
   top: 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px;
+  padding: 20px;
   height: 60px;
   width: 100%;
   background-color: ${props => props.bgColor};
@@ -62,6 +62,15 @@ export const ProfileImage = styled.img`
   width: 30px;
   height: 30px;
   margin-right: 10px;
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`
+export const MenuIcon = styled.div`
+  margin-right: 10px;
+  @media screen and (min-width: 768px) {
+    display: none;
+  }
 `
 export const ModalContainer = styled.div`
   display: flex;

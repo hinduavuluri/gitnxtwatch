@@ -49,7 +49,6 @@ class GamingVideos extends Component {
     const response = await fetch(url, options)
     if (response.ok) {
       const data = await response.json()
-      // console.log(data)
       const updatedData = data.videos.map(eachVideo => ({
         id: eachVideo.id,
         title: eachVideo.title,
@@ -88,7 +87,7 @@ class GamingVideos extends Component {
 
   renderFailureView = () => <FailureView onRetry={this.onRetry} />
 
-  renderTrendingVideos = () => {
+  renderGamingVideos = () => {
     const {apiStatus} = this.state
 
     switch (apiStatus) {
@@ -123,7 +122,7 @@ class GamingVideos extends Component {
                   </GamingTitleIconContainer>
                   <GamingText color={textColor}>Gaming</GamingText>
                 </GamingVideoTitle>
-                {this.renderTrendingVideos()}
+                {this.renderGamingVideos()}
               </GamingContainer>
             </div>
           )
