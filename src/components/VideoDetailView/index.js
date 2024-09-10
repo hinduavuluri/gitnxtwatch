@@ -8,7 +8,7 @@ import ThemeAndVideoContext from '../../context/ThemeAndVideoContext'
 import FailureView from '../FailureView'
 import PlayVideoView from '../PlayVideoView'
 
-import {VideoDetailViewContainer, LoaderContainer} from './styledComponents'
+import {VideoDetailedViewContainer, LoaderContainer} from './styledComponents'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -137,12 +137,12 @@ class VideoDetailView extends Component {
             <>
               <Header />
               <NavigationBar />
-              <VideoDetailViewContainer
+              <VideoDetailedViewContainer
                 data-testid="videoItemDetails"
                 bgColor={bgColor}
               >
                 {this.renderVideoDetailView()}
-              </VideoDetailViewContainer>
+              </VideoDetailedViewContainer>
             </>
           )
         }}
